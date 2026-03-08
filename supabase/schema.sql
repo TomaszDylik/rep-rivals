@@ -35,15 +35,17 @@ create table public.group_members (
   primary key (group_id, user_id)
 );
 
--- Categories (per group, with metric flags)
+-- Categories (per group, with metric flags and scoring)
 create table public.categories (
-  id           uuid primary key default gen_random_uuid(),
-  group_id     uuid not null references public.groups(id) on delete cascade,
-  name         text not null,
-  has_reps     boolean default false,
-  has_weight   boolean default false,
-  has_distance boolean default false,
-  has_time     boolean default false
+  id                uuid primary key default gen_random_uuid(),
+  group_id          uuid not null references public.groups(id) on delete cascade,
+  name              text not null,
+  has_reps          boolean default false,
+  has_weight        boolean default false,
+  has_distance      boolean default false,
+  has_time          boolean default false,
+  points_multiplier numeric default 1.0,
+  base_unit         text
 );
 
 -- Workouts
