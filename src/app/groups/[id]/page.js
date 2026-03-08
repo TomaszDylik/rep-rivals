@@ -208,7 +208,7 @@ export default function GroupDetailPage() {
               </div>
 
               {/* Scoring fields */}
-              <div className="mt-3 flex gap-2">
+              <div className="mt-3 flex flex-col gap-2 sm:flex-row">
                 <input
                   type="number"
                   min="0"
@@ -216,14 +216,14 @@ export default function GroupDetailPage() {
                   placeholder="Points multiplier, e.g. 100"
                   value={multiplier}
                   onChange={(e) => setMultiplier(e.target.value)}
-                  className="flex-1 rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
                 />
                 <input
                   type="text"
                   placeholder="Base unit, e.g. per 1 km"
                   value={baseUnit}
                   onChange={(e) => setBaseUnit(e.target.value)}
-                  className="flex-1 rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
                 />
               </div>
 
@@ -234,7 +234,7 @@ export default function GroupDetailPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="mt-3 rounded-lg bg-lime-500 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50"
+                className="mt-3 w-full rounded-lg bg-lime-500 px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50 sm:w-auto"
               >
                 {saving ? "Saving..." : "Add category"}
               </button>
