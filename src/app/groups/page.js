@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { Plus, LogIn, Copy, Check } from "lucide-react";
+import Link from "next/link";
+import { Plus, LogIn, Copy, Check, ChevronRight } from "lucide-react";
 
 export default function GroupsPage() {
   const router = useRouter();
@@ -244,23 +245,28 @@ export default function GroupsPage() {
               key={g.id}
               className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
             >
-              <div>
+              <Link href={`/groups/${g.id}`} className="flex-1">
                 <p className="font-medium text-white">{g.name}</p>
                 <p className="mt-0.5 font-mono text-xs text-neutral-500">
                   {g.invite_code}
                 </p>
+              </Link>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => copyCode(g.invite_code, g.id)}
+                  className="text-neutral-500 transition-colors hover:text-lime-400"
+                  title="Copy invite code"
+                >
+                  {copiedId === g.id ? (
+                    <Check size={18} className="text-lime-400" />
+                  ) : (
+                    <Copy size={18} />
+                  )}
+                </button>
+                <Link href={`/groups/${g.id}`} className="text-neutral-600">
+                  <ChevronRight size={18} />
+                </Link>
               </div>
-              <button
-                onClick={() => copyCode(g.invite_code, g.id)}
-                className="text-neutral-500 transition-colors hover:text-lime-400"
-                title="Copy invite code"
-              >
-                {copiedId === g.id ? (
-                  <Check size={18} className="text-lime-400" />
-                ) : (
-                  <Copy size={18} />
-                )}
-              </button>
             </li>
           ))}
         </ul>
