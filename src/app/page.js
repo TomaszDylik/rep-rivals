@@ -225,7 +225,7 @@ export default function FeedPage() {
                       <button
                         key={label}
                         onClick={() => handleReaction(w.id, label)}
-                        className={`flex items-center gap-1 rounded-lg px-3 py-1.5 text-base transition-colors hover:bg-neutral-800 ${
+                        className={`flex items-center gap-1 rounded-lg px-2 py-1.5 text-base transition-colors hover:bg-neutral-800 ${
                           isActive
                             ? "bg-neutral-800 ring-1 ring-lime-500/50"
                             : ""
