@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
 import { supabase } from "@/lib/supabase";
 import Link from "next/link";
-import { ArrowLeft, Trash2, Trophy, Dumbbell } from "lucide-react";
+import { ArrowLeft, Trash2, Trophy, Dumbbell, Crown } from "lucide-react";
 
 const METRICS = [
   { key: "has_weight", label: "Weight (kg)", badge: "kg" },
@@ -150,6 +150,15 @@ export default function GroupDetailPage() {
       <p className="mt-1 font-mono text-xs text-neutral-500">
         Invite code: <span className="text-neutral-300">{group.invite_code}</span>
       </p>
+
+      {/* Leaderboard link */}
+      <Link
+        href={`/groups/${id}/leaderboard`}
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-lime-500/30 bg-lime-500/10 py-3 text-sm font-semibold text-lime-400 transition-colors hover:bg-lime-500/20"
+      >
+        <Crown size={16} />
+        Leaderboard
+      </Link>
 
       {/* Tabs */}
       <div className="mt-5 flex gap-1 rounded-lg bg-neutral-900 p-1">
