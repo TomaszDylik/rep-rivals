@@ -132,7 +132,7 @@ export default function FeedPage() {
 
       {workouts.length === 0 ? (
         <div className="mt-20 flex flex-col items-center gap-4 text-center">
-          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-900">
+          <div className="flex h-16 w-16 items-center justify-center rounded-full bg-neutral-900/60">
             <Plus size={28} className="text-neutral-600" />
           </div>
           <p className="text-neutral-400">No workouts yet.</p>
@@ -143,7 +143,7 @@ export default function FeedPage() {
           </p>
           <Link
             href="/groups"
-            className="mt-2 rounded-lg bg-lime-500 px-5 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-lime-400"
+            className="mt-2 rounded-full bg-lime-500 px-5 py-2.5 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)]"
           >
             Browse Groups
           </Link>
@@ -178,7 +178,7 @@ export default function FeedPage() {
             return (
               <li
                 key={w.id}
-                className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+                className="rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4"
               >
                 {/* Header: avatar + user + time + points */}
                 <div className="flex items-center gap-3">
@@ -217,7 +217,7 @@ export default function FeedPage() {
                 )}
 
                 {/* Footer: reactions + comments */}
-                <div className="mt-3 flex items-center gap-1 border-t border-neutral-800 pt-3">
+                <div className="mt-3 flex items-center gap-1 border-t border-white/5 pt-3">
                   {REACTIONS.map(({ emoji, label }) => {
                     const count = reactionCounts[label] || 0;
                     const isActive = myReaction?.type === label;
@@ -261,7 +261,7 @@ export default function FeedPage() {
 
                 {/* Comments section (expandable) */}
                 {isCommentsOpen && (
-                  <div className="mt-3 space-y-3 border-t border-neutral-800 pt-3">
+                  <div className="mt-3 space-y-3 border-t border-white/5 pt-3">
                     {/* Existing comments */}
                     {comments.length > 0 && (
                       <ul className="space-y-2">
@@ -313,11 +313,11 @@ export default function FeedPage() {
                         onKeyDown={(e) => {
                           if (e.key === "Enter") handleAddComment(w.id);
                         }}
-                        className="min-w-0 flex-1 rounded-lg border border-neutral-700 bg-neutral-800 px-3 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+                        className="min-w-0 flex-1 rounded-xl border border-white/10 bg-neutral-900/50 px-3 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
                       />
                       <button
                         onClick={() => handleAddComment(w.id)}
-                        className="flex shrink-0 items-center justify-center rounded-lg bg-lime-500 px-3 py-2 text-black transition-colors hover:bg-lime-400"
+                        className="flex shrink-0 items-center justify-center rounded-full bg-lime-500 px-3 py-2 text-black shadow-[0_0_10px_rgba(132,204,22,0.3)] transition-all hover:shadow-[0_0_15px_rgba(132,204,22,0.5)]"
                       >
                         <Send size={14} />
                       </button>

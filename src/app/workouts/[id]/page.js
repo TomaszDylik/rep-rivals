@@ -173,16 +173,16 @@ export default function WorkoutDetailPage() {
       <p className="mt-1 text-xs text-neutral-500">{workout.groups?.name}</p>
 
       {/* Add exercise */}
-      <form onSubmit={handleAddExercise} className="mt-6 flex flex-col gap-2 rounded-lg border border-neutral-800 bg-neutral-900 p-4">
+      <form onSubmit={handleAddExercise} className="mt-6 flex flex-col gap-2 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4">
         <h2 className="text-sm font-semibold text-white">Add Exercise</h2>
         <input
           type="text" placeholder="Exercise name, e.g. Bench Press"
           value={exName} onChange={(e) => setExName(e.target.value)}
-          className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+          className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
         />
         <select
           value={exCatId} onChange={(e) => setExCatId(e.target.value)}
-          className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white focus:border-lime-500 focus:outline-none"
+          className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white focus:border-lime-500 focus:outline-none"
         >
           <option value="">Select category...</option>
           {categories.map((c) => (
@@ -190,7 +190,7 @@ export default function WorkoutDetailPage() {
           ))}
         </select>
         <button type="submit" disabled={addingEx}
-          className="w-full rounded-lg bg-lime-500 py-2.5 text-sm font-semibold text-black hover:bg-lime-400 disabled:opacity-50">
+          className="w-full rounded-full bg-lime-500 py-2.5 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] hover:bg-lime-400 disabled:opacity-50">
           <Plus size={16} className="mr-1 inline" />Add Exercise
         </button>
       </form>
@@ -201,7 +201,7 @@ export default function WorkoutDetailPage() {
         const fields = setFields[ex.id] || {};
         const isOpen = activeExId === ex.id;
         return (
-          <div key={ex.id} className="mt-4 rounded-lg border border-neutral-800 bg-neutral-900 p-4">
+          <div key={ex.id} className="mt-4 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="font-medium text-white">{ex.custom_name}</p>
@@ -216,7 +216,7 @@ export default function WorkoutDetailPage() {
             {(ex.sets || []).length > 0 && (
               <ul className="mt-3 space-y-1.5">
                 {ex.sets.map((s, i) => (
-                  <li key={s.id} className="flex items-center justify-between rounded-md bg-neutral-800 px-3 py-2 text-xs text-neutral-300">
+                  <li key={s.id} className="flex items-center justify-between rounded-xl bg-neutral-800/60 px-3 py-2 text-xs text-neutral-300">
                     <span>
                       Set {i + 1}:
                       {s.reps != null && ` ${s.reps} reps`}
@@ -250,25 +250,25 @@ export default function WorkoutDetailPage() {
                 {cat.has_reps && (
                   <input type="number" min="0" placeholder="Reps"
                     value={fields.reps || ""} onChange={(e) => updateField(ex.id, "reps", e.target.value)}
-                    className="w-20 rounded-md border border-neutral-700 bg-neutral-800 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
+                    className="w-20 rounded-xl border border-white/10 bg-neutral-900/50 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
                 )}
                 {cat.has_weight && (
                   <input type="number" min="0" step="0.5" placeholder="kg"
                     value={fields.weight_kg || ""} onChange={(e) => updateField(ex.id, "weight_kg", e.target.value)}
-                    className="w-20 rounded-md border border-neutral-700 bg-neutral-800 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
+                    className="w-20 rounded-xl border border-white/10 bg-neutral-900/50 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
                 )}
                 {cat.has_distance && (
                   <input type="number" min="0" step="0.01" placeholder="km"
                     value={fields.distance_km || ""} onChange={(e) => updateField(ex.id, "distance_km", e.target.value)}
-                    className="w-20 rounded-md border border-neutral-700 bg-neutral-800 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
+                    className="w-20 rounded-xl border border-white/10 bg-neutral-900/50 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
                 )}
                 {cat.has_time && (
                   <input type="number" min="0" placeholder="min"
                     value={fields.time_min || ""} onChange={(e) => updateField(ex.id, "time_min", e.target.value)}
-                    className="w-20 rounded-md border border-neutral-700 bg-neutral-800 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
+                    className="w-20 rounded-xl border border-white/10 bg-neutral-900/50 px-2 py-2 text-xs text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none" />
                 )}
                 <button onClick={() => handleAddSet(ex)}
-                  className="rounded-md bg-lime-500 px-3 py-2 text-xs font-semibold text-black hover:bg-lime-400">
+                  className="rounded-full bg-lime-500 px-4 py-2 text-xs font-bold text-black shadow-[0_0_10px_rgba(132,204,22,0.3)] transition-all duration-300 hover:shadow-[0_0_15px_rgba(132,204,22,0.5)]">
                   Save
                 </button>
               </div>
@@ -280,7 +280,7 @@ export default function WorkoutDetailPage() {
       {/* Finish */}
       <button
         onClick={() => router.push("/")}
-        className="mt-6 w-full rounded-lg border border-lime-500 py-3 text-sm font-semibold text-lime-400 transition-colors hover:bg-lime-500 hover:text-black"
+        className="mt-6 w-full rounded-full border border-lime-500/30 py-3 text-sm font-bold text-lime-400 shadow-[0_0_10px_rgba(132,204,22,0.2)] transition-all duration-300 hover:shadow-[0_0_20px_rgba(132,204,22,0.4)] hover:bg-lime-500 hover:text-black"
       >
         Finish Workout
       </button>

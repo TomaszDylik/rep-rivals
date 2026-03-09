@@ -70,6 +70,12 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Use the user's JWT token for RLS if provided, otherwise fall back to anon key
+	authToken := r.Header.Get("Authorization")
+	if authToken == "" {
+		authToken = "Bearer " + supabaseKey
+	}
+
 	// 1. Fetch workouts for this group, optionally filtered by time
 	workoutParams := url.Values{}
 	workoutParams.Set("select", "id,user_id,created_at")
@@ -84,7 +90,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		workoutParams.Set("created_at", "gte."+since)
 	}
 
-	workouts, err := supabaseGet[workoutRow](supabaseURL, supabaseKey, "workouts", workoutParams)
+	workouts, err := supabaseGet[workoutRow](supabaseURL, supabaseKey, authToken, "workouts", workoutParams)
 	if err != nil {
 		http.Error(w, fmt.Sprintf(`{"error":"%s"}`, err.Error()), http.StatusInternalServerError)
 		return
@@ -119,7 +125,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	inFilter += ")"
 	exParams.Set("workout_id", "in."+inFilter)
 
-	exercises, err := supabaseGet[exerciseRow](supabaseURL, supabaseKey, "exercises", exParams)
+	exercises, err := supabaseGet[exerciseRow](supabaseURL, supabaseKey, authToken, "exercises", exParams)
 	if err != nil {
 		http.Error(w, fmt.Sprintf(`{"error":"%s"}`, err.Error()), http.StatusInternalServerError)
 		return
@@ -152,7 +158,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	usrInFilter += ")"
 	usrParams.Set("id", "in."+usrInFilter)
 
-	users, err := supabaseGet[userRow](supabaseURL, supabaseKey, "users", usrParams)
+	users, err := supabaseGet[userRow](supabaseURL, supabaseKey, authToken, "users", usrParams)
 	if err != nil {
 		http.Error(w, fmt.Sprintf(`{"error":"%s"}`, err.Error()), http.StatusInternalServerError)
 		return
@@ -187,14 +193,14 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(entries)
 }
 
-func supabaseGet[T any](baseURL, apiKey, table string, params url.Values) ([]T, error) {
+func supabaseGet[T any](baseURL, apiKey, authToken, table string, params url.Values) ([]T, error) {
 	endpoint := fmt.Sprintf("%s/rest/v1/%s?%s", baseURL, table, params.Encode())
 	req, err := http.NewRequest("GET", endpoint, nil)
 	if err != nil {
 		return nil, err
 	}
 	req.Header.Set("apikey", apiKey)
-	req.Header.Set("Authorization", "Bearer "+apiKey)
+	req.Header.Set("Authorization", authToken)
 	req.Header.Set("Content-Type", "application/json")
 
 	resp, err := http.DefaultClient.Do(req)

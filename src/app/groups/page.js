@@ -163,12 +163,12 @@ export default function GroupsPage() {
           placeholder="Invite code"
           value={joinCode}
           onChange={(e) => setJoinCode(e.target.value.toUpperCase())}
-          className="flex-1 rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm uppercase tracking-widest text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+          className="flex-1 rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm uppercase tracking-widest text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
         />
         <button
           type="submit"
           disabled={joining}
-          className="flex items-center gap-2 rounded-lg bg-lime-500 px-4 py-3 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50"
+          className="flex items-center gap-2 rounded-full bg-lime-500 px-4 py-3 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] disabled:opacity-50"
         >
           <LogIn size={16} />
           Join
@@ -183,7 +183,7 @@ export default function GroupsPage() {
         {!showCreate ? (
           <button
             onClick={() => setShowCreate(true)}
-            className="flex w-full items-center justify-center gap-2 rounded-lg border border-dashed border-neutral-700 py-3 text-sm text-neutral-400 transition-colors hover:border-lime-500 hover:text-lime-400"
+            className="flex w-full items-center justify-center gap-2 rounded-2xl border border-dashed border-white/10 py-3 text-sm text-neutral-400 transition-colors hover:border-lime-500 hover:text-lime-400"
           >
             <Plus size={16} />
             Create new group
@@ -191,7 +191,7 @@ export default function GroupsPage() {
         ) : (
           <form
             onSubmit={handleCreate}
-            className="rounded-lg border border-neutral-800 bg-neutral-900 p-4"
+            className="rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4"
           >
             <label className="mb-2 block text-sm text-neutral-400">
               Group name
@@ -201,7 +201,7 @@ export default function GroupsPage() {
               placeholder="e.g. Gym Bros"
               value={groupName}
               onChange={(e) => setGroupName(e.target.value)}
-              className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+              className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
             />
             {createError && (
               <p className="mt-2 text-sm text-red-400">{createError}</p>
@@ -210,7 +210,7 @@ export default function GroupsPage() {
               <button
                 type="submit"
                 disabled={creating}
-                className="rounded-lg bg-lime-500 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50"
+                className="rounded-full bg-lime-500 px-4 py-2 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] disabled:opacity-50"
               >
                 {creating ? "Creating..." : "Create"}
               </button>
@@ -243,7 +243,7 @@ export default function GroupsPage() {
           {groups.map((g) => (
             <li
               key={g.id}
-              className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+              className="flex items-center justify-between rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md px-4 py-3"
             >
               <Link href={`/groups/${g.id}`} className="flex-1">
                 <p className="font-medium text-white">{g.name}</p>

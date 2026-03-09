@@ -98,7 +98,7 @@ export default function ProfilePage() {
         </div>
         <button
           onClick={handleLogout}
-          className="mt-2 flex items-center gap-2 rounded-lg bg-red-500/10 px-6 py-2.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20"
+          className="mt-2 flex items-center gap-2 rounded-full bg-red-500/10 px-6 py-2.5 text-sm font-semibold text-red-400 transition-colors hover:bg-red-500/20"
         >
           <LogOut size={16} />
           Wyloguj się
@@ -107,11 +107,11 @@ export default function ProfilePage() {
 
       {/* Stats grid */}
       <div className="mt-8 grid grid-cols-2 gap-4">
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4 text-center">
+        <div className="rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4 text-center">
           <p className="text-2xl font-bold text-lime-400">{totalWorkouts}</p>
           <p className="mt-1 text-xs text-neutral-500">Suma Treningów</p>
         </div>
-        <div className="rounded-xl border border-neutral-800 bg-neutral-900 p-4 text-center">
+        <div className="rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4 text-center">
           <p className="text-2xl font-bold text-lime-400">{Math.round(totalPoints)}</p>
           <p className="mt-1 text-xs text-neutral-500">Zdobyte Punkty</p>
         </div>
@@ -136,7 +136,7 @@ export default function ProfilePage() {
             return (
               <li
                 key={w.id}
-                className="flex items-center gap-3 rounded-xl border border-neutral-800 bg-neutral-900 p-4"
+                className="flex items-center gap-3 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4"
               >
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-semibold text-white">

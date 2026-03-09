@@ -154,21 +154,21 @@ export default function GroupDetailPage() {
       {/* Leaderboard link */}
       <Link
         href={`/groups/${id}/leaderboard`}
-        className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg border border-lime-500/30 bg-lime-500/10 py-3 text-sm font-semibold text-lime-400 transition-colors hover:bg-lime-500/20"
+        className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-lime-500/30 bg-lime-500/10 py-3 text-sm font-bold text-lime-400 shadow-[0_0_15px_rgba(132,204,22,0.2)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.4)]"
       >
         <Crown size={16} />
         Leaderboard
       </Link>
 
       {/* Tabs */}
-      <div className="mt-5 flex gap-1 rounded-lg bg-neutral-900 p-1">
+      <div className="mt-5 flex gap-1 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-1">
         {TABS.map(({ id: tid, label, icon: Icon }) => (
           <button
             key={tid}
             onClick={() => setTab(tid)}
-            className={`flex flex-1 items-center justify-center gap-1.5 rounded-md py-2 text-xs font-medium transition-colors ${
+            className={`flex flex-1 items-center justify-center gap-1.5 rounded-xl py-2 text-xs font-medium transition-colors ${
               tab === tid
-                ? "bg-neutral-800 text-lime-400"
+                ? "bg-neutral-800/80 text-lime-400"
                 : "text-neutral-500 hover:text-neutral-300"
             }`}
           >
@@ -185,7 +185,7 @@ export default function GroupDetailPage() {
           {isAdmin && (
             <form
               onSubmit={handleAddCategory}
-              className="mt-6 rounded-lg border border-neutral-800 bg-neutral-900 p-4"
+              className="mt-6 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-4"
             >
               <h2 className="mb-3 text-sm font-semibold text-white">
                 Add new category
@@ -196,7 +196,7 @@ export default function GroupDetailPage() {
                 placeholder="Category name, e.g. Chest"
                 value={catName}
                 onChange={(e) => setCatName(e.target.value)}
-                className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+                className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
               />
 
               <div className="mt-3 flex flex-wrap gap-2">
@@ -208,7 +208,7 @@ export default function GroupDetailPage() {
                     className={`rounded-full border px-3 py-1.5 text-xs font-medium transition-colors ${
                       metrics[key]
                         ? "border-lime-500 bg-lime-500/10 text-lime-400"
-                        : "border-neutral-700 text-neutral-500 hover:border-neutral-500"
+                        : "border-white/10 text-neutral-500 hover:border-neutral-500"
                     }`}
                   >
                     {label}
@@ -225,14 +225,14 @@ export default function GroupDetailPage() {
                   placeholder="Points multiplier, e.g. 100"
                   value={multiplier}
                   onChange={(e) => setMultiplier(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
+                  className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
                 />
                 <input
                   type="text"
                   placeholder="Base unit, e.g. per 1 km"
                   value={baseUnit}
                   onChange={(e) => setBaseUnit(e.target.value)}
-                  className="w-full rounded-lg border border-neutral-700 bg-neutral-800 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
+                  className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none sm:flex-1"
                 />
               </div>
 
@@ -243,7 +243,7 @@ export default function GroupDetailPage() {
               <button
                 type="submit"
                 disabled={saving}
-                className="mt-3 w-full rounded-lg bg-lime-500 px-4 py-2.5 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50 sm:w-auto"
+                className="mt-3 w-full rounded-full bg-lime-500 px-4 py-2.5 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] hover:bg-lime-400 disabled:opacity-50 sm:w-auto"
               >
                 {saving ? "Saving..." : "Add category"}
               </button>
@@ -262,7 +262,7 @@ export default function GroupDetailPage() {
               {categories.map((cat) => (
                 <li
                   key={cat.id}
-                  className="flex items-center justify-between rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                  className="flex items-center justify-between rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md px-4 py-3"
                 >
                   <div>
                     <p className="font-medium text-white">{cat.name}</p>
@@ -310,7 +310,7 @@ export default function GroupDetailPage() {
               {categories.map((cat) => (
                 <li
                   key={cat.id}
-                  className="rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                  className="rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md px-4 py-3"
                 >
                   <div className="flex items-baseline justify-between">
                     <p className="font-medium text-white">{cat.name}</p>

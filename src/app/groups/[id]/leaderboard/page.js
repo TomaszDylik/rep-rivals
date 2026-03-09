@@ -52,8 +52,11 @@ export default function LeaderboardPage() {
   async function loadLeaderboard() {
     setLoading(true);
     try {
+      const { data: sessionData } = await supabase.auth.getSession();
+      const token = sessionData.session?.access_token;
       const res = await fetch(
-        `/api/leaderboard?groupId=${id}&timeframe=${timeframe}`
+        `/api/leaderboard?groupId=${id}&timeframe=${timeframe}`,
+        { headers: { Authorization: `Bearer ${token}` } }
       );
       if (res.ok) {
         const data = await res.json();
@@ -86,14 +89,14 @@ export default function LeaderboardPage() {
       )}
 
       {/* Timeframe filter */}
-      <div className="mt-5 flex gap-1 rounded-lg bg-neutral-900 p-1">
+      <div className="mt-5 flex gap-1 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md p-1">
         {TIMEFRAMES.map(({ key, label }) => (
           <button
             key={key}
             onClick={() => setTimeframe(key)}
-            className={`flex-1 rounded-md py-2 text-xs font-medium transition-colors ${
+            className={`flex-1 rounded-xl py-2 text-xs font-medium transition-colors ${
               timeframe === key
-                ? "bg-neutral-800 text-lime-400"
+                ? "bg-neutral-800/80 text-lime-400"
                 : "text-neutral-500 hover:text-neutral-300"
             }`}
           >
@@ -125,7 +128,7 @@ export default function LeaderboardPage() {
               return (
                 <div
                   key={entry.user_id}
-                  className={`flex items-center gap-3 rounded-xl border ${style.border} ${style.bg} p-4`}
+                  className={`flex items-center gap-3 rounded-2xl border ${style.border} ${style.bg} backdrop-blur-md p-4`}
                 >
                   <span className="text-2xl">{style.emoji}</span>
                   <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-sm font-bold text-lime-400">
@@ -157,7 +160,7 @@ export default function LeaderboardPage() {
                 return (
                   <li
                     key={entry.user_id}
-                    className="flex items-center gap-3 rounded-lg border border-neutral-800 bg-neutral-900 px-4 py-3"
+                    className="flex items-center gap-3 rounded-2xl border border-white/5 bg-neutral-900/60 backdrop-blur-md px-4 py-3"
                   >
                     <span className="w-6 text-center text-sm font-bold text-neutral-500">
                       {entry.rank}

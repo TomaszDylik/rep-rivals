@@ -61,7 +61,7 @@ export default function NewWorkoutPage() {
           <select
             value={selectedGroup}
             onChange={(e) => setSelectedGroup(e.target.value)}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white focus:border-lime-500 focus:outline-none"
+            className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white focus:border-lime-500 focus:outline-none"
           >
             <option value="">Select a group...</option>
             {groups.map((g) => (
@@ -77,7 +77,7 @@ export default function NewWorkoutPage() {
             placeholder="e.g. Upper Body Push"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-lg border border-neutral-700 bg-neutral-900 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
+            className="w-full rounded-xl border border-white/10 bg-neutral-900/50 px-4 py-3 text-sm text-white placeholder-neutral-500 focus:border-lime-500 focus:outline-none"
           />
         </div>
 
@@ -86,7 +86,7 @@ export default function NewWorkoutPage() {
         <button
           type="submit"
           disabled={creating}
-          className="w-full rounded-lg bg-lime-500 py-3 text-sm font-semibold text-black transition-colors hover:bg-lime-400 disabled:opacity-50"
+          className="w-full rounded-full bg-lime-500 py-3 text-sm font-bold text-black shadow-[0_0_15px_rgba(132,204,22,0.4)] transition-all duration-300 hover:shadow-[0_0_25px_rgba(132,204,22,0.6)] hover:bg-lime-400 disabled:opacity-50"
         >
           {creating ? "Creating..." : "Start Workout"}
         </button>
