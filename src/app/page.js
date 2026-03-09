@@ -52,7 +52,7 @@ export default function FeedPage() {
 
     const { data } = await supabase
       .from("workouts")
-      .select("id, name, created_at, group_id, users(username), groups(name)")
+      .select("id, name, created_at, group_id, users(username), groups(name), exercises(custom_name, sets(points))")
       .in("group_id", groupIds)
       .order("created_at", { ascending: false })
       .limit(30);
@@ -97,13 +97,17 @@ export default function FeedPage() {
             const initial = w.users?.username
               ? w.users.username.charAt(0).toUpperCase()
               : "?";
+            const exercises = w.exercises || [];
+            const totalPts = exercises.reduce(
+              (sum, ex) => sum + (ex.sets || []).reduce((s, st) => s + Number(st.points || 0), 0), 0
+            );
 
             return (
               <li
                 key={w.id}
                 className="rounded-xl border border-neutral-800 bg-neutral-900 p-4"
               >
-                {/* Header: avatar + user + time */}
+                {/* Header: avatar + user + time + points */}
                 <div className="flex items-center gap-3">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-neutral-800 text-sm font-bold text-lime-400">
                     {initial}
@@ -116,12 +120,26 @@ export default function FeedPage() {
                       {w.groups?.name} &middot; {timeAgo(w.created_at)}
                     </p>
                   </div>
+                  {totalPts > 0 && (
+                    <span className="shrink-0 text-sm font-bold text-lime-400">
+                      +{Math.round(totalPts)} pts
+                    </span>
+                  )}
                 </div>
 
-                {/* Body: workout title */}
+                {/* Body: workout title + exercise summary */}
                 <p className="mt-3 text-sm font-semibold text-white">
                   {w.name}
                 </p>
+                {exercises.length > 0 && (
+                  <ul className="mt-1.5 space-y-0.5">
+                    {exercises.map((ex, i) => (
+                      <li key={i} className="text-xs text-neutral-500">
+                        &bull; {ex.custom_name}: {(ex.sets || []).length} {(ex.sets || []).length === 1 ? "set" : "sets"}
+                      </li>
+                    ))}
+                  </ul>
+                )}
 
                 {/* Footer: reactions + comments */}
                 <div className="mt-3 flex items-center gap-1 border-t border-neutral-800 pt-3">
