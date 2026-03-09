@@ -7,14 +7,26 @@ import { ArrowLeft, Plus, Trash2 } from "lucide-react";
 import Link from "next/link";
 
 function calcPoints(set, category) {
+  // Step A: total value
+  let totalValue = 0;
+  if (category.has_weight && category.has_reps && set.weight_kg && set.reps) {
+    totalValue = set.weight_kg * set.reps; // tonnage
+  } else if (category.has_distance && set.distance_km) {
+    totalValue = set.distance_km;
+  } else if (category.has_time && set.time_min) {
+    totalValue = set.time_min;
+  } else if (category.has_reps && set.reps) {
+    totalValue = set.reps;
+  }
+  if (totalValue === 0) return 0;
+
+  // Step B: extract number from base_unit string (e.g. "10 kg" -> 10)
+  const baseUnitValue =
+    parseFloat((category.base_unit || "").match(/\d+(\.\d+)?/)?.[0]) || 1;
+
+  // Step C: final formula
   const m = Number(category.points_multiplier) || 1;
-  if (category.has_weight && category.has_reps && set.weight_kg && set.reps)
-    return set.reps * set.weight_kg * m;
-  if (category.has_distance && set.distance_km) return set.distance_km * m;
-  if (category.has_time && set.time_min) return set.time_min * m;
-  if (category.has_weight && set.weight_kg) return set.weight_kg * m;
-  if (category.has_reps && set.reps) return set.reps * m;
-  return 0;
+  return Math.round((totalValue / baseUnitValue) * m);
 }
 
 export default function WorkoutDetailPage() {
@@ -110,7 +122,7 @@ export default function WorkoutDetailPage() {
     await supabase.from("sets").insert({
       exercise_id: ex.id,
       reps, weight_kg, distance_km, time_min,
-      points: Math.round(pts * 100) / 100,
+      points: pts,
     });
     setSetFields((prev) => ({ ...prev, [ex.id]: {} }));
     await loadExercises();
