@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { supabase } from "@/lib/supabase";
-import { LogOut, Trash2 } from "lucide-react";
+import { LogOut, Trash2, Pencil } from "lucide-react";
 
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
@@ -154,6 +154,12 @@ export default function ProfilePage() {
                     +{Math.round(pts)} pts
                   </span>
                 )}
+                <button
+                  onClick={() => router.push(`/workouts/${w.id}/edit`)}
+                  className="shrink-0 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-neutral-800 hover:text-lime-400"
+                >
+                  <Pencil size={16} />
+                </button>
                 <button
                   onClick={() => handleDeleteWorkout(w.id)}
                   className="shrink-0 rounded-lg p-2 text-neutral-600 transition-colors hover:bg-red-500/10 hover:text-red-400"
